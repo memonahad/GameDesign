@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
+    public float min;
+    public float max;
     private GameObject player;
 
 	// Use this for initialization
@@ -12,6 +14,7 @@ public class CameraMovement : MonoBehaviour {
 	
 	// Update is called once per frame at the end of others
 	void LateUpdate () {
-        gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, gameObject.transform.position.z);
-	}
+            float x = Mathf.Clamp(player.transform.position.x, min, max);
+            gameObject.transform.position = new Vector3(x, player.transform.position.y, gameObject.transform.position.z);
+    }
 }
