@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
         yVelocity = rigidbodie.velocity.y;
         Jump();
+        //Shoot();
         moveX = Input.GetAxis("Horizontal");
         gameObject.GetComponent<Animator>().SetFloat("speed", Mathf.Abs(moveX));
         moveY = Input.GetAxis("Vertical");
@@ -44,20 +45,37 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
+    void Shoot()
+    {
+            gameObject.GetComponent<Animator>().SetInteger("state", 4);
+    }
+
     void Jump()
     {
         if(rigidbodie.velocity.y > 0)
         {
-            gameObject.GetComponent<Animator>().SetInteger("state", 3);
+            if (Input.GetKey("space"))
+            {
+                Shoot();
+            }
+            else gameObject.GetComponent<Animator>().SetInteger("state", 3);
         }
         else if (rigidbodie.velocity.y < 0)
         {
-            gameObject.GetComponent<Animator>().SetInteger("state", 1);
+            if (Input.GetKey("space"))
+            {
+                Shoot();
+            }
+            else gameObject.GetComponent<Animator>().SetInteger("state", 1);
         }
         else
         {
             jumps = 0;
-            gameObject.GetComponent<Animator>().SetInteger("state", 0);
+            if (Input.GetKey("space"))
+            {
+                Shoot();
+            }
+            else gameObject.GetComponent<Animator>().SetInteger("state", 0);
         }
     }
 
